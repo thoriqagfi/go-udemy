@@ -19,4 +19,10 @@ migratedown:
 sqlc:
 	sqlc generate
 
-.PHONY: createdb dropdb postgres migrateup migratedown sqlc
+start:
+	docker container start postgres-udemy
+
+test:
+	go test -v -cover ./...
+
+.PHONY: createdb dropdb postgres migrateup migratedown sqlc start test
