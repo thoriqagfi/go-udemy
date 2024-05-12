@@ -5,22 +5,20 @@ import (
 	"log"
 	"os"
 	"testing"
+
 	_ "github.com/lib/pq"
-
-)
-
-
-const (
-	dbDriver = "postgres"
-	dbSource = "postgresql://postgres:123456789@127.0.0.1/simple_bank?sslmode=disable"
+	"go-udemy.sqlc.dev/app/util"
 )
 
 var testQueries *Queries
 var testDB *sql.DB
 
 func TestMain(m *testing.M) {
-	var err error
-	testDB, err = sql.Open(dbDriver, dbSource)
+	config, err := util.LoadConfig("../..")
+	if err != nil {
+		log.Fatal("cannot load config: ", err)
+	}
+	testDB, err = sql.Open(config.DBDriver, config.DBSource)
 	if err != nil {
 		log.Fatal("cannot connect to db: ", err)
 	}

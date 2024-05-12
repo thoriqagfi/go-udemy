@@ -3,19 +3,18 @@ package main
 import (
 	"database/sql"
 
+	_ "github.com/lib/pq"
 	"go-udemy.sqlc.dev/app/api"
 	db "go-udemy.sqlc.dev/app/db/sqlc"
-	_ "github.com/lib/pq"
-)
-
-const (
-	dbDriver = "postgres"
-	dbSource = "postgresql://postgres:123456789@127.0.0.1/simple_bank?sslmode=disable"
-	serverAddress = "0.0.0.0:8080"
+	"go-udemy.sqlc.dev/app/util"
 )
 
 func main() {
-	conn, err := sql.Open(dbDriver, dbSource)
+	config, err := util.LoadConfig(".")
+	if err != nil {
+		panic(err)
+	}
+	conn, err := sql.Open(config.DBDriver, config.DBSource)
 	if err != nil {
 		panic(err)
 	}
@@ -23,7 +22,7 @@ func main() {
 	store := db.NewStore(conn)
 	server := api.NewServer(store)
 
-	err = server.Start(serverAddress)
+	err = server.Start(config.ServerAddress)
 	if err != nil {
 		panic(err)
 	}
