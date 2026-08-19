@@ -1,7 +1,7 @@
 # make ${target} DB_CONTAINER=${your_db_container} DB_USERNAME=${your_db_username} DB_NAME=${your_db_name}
 
 postgres:
-	docker run --name postgres-udemy -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=123456789 -p 5432:5432 -d postgres:alpine
+	docker run --name postgres-udemy -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=1234567890 -p 5432:5432 -d postgres:alpine
 
 createdb:
 	docker exec -it postgresql createdb --username=postgres --owner=postgres simple_bank
