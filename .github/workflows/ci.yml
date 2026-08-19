@@ -55,5 +55,13 @@ jobs:
     - name: Matching go.mod
       run: go install golang.org/x/tools/gopls@latest
 
+    - name: Create app.env for testing
+      run: |
+        echo "DB_DRIVER=postgres" >> app.env
+        echo "DB_SOURCE=postgresql://postgres:1234567890@127.0.0.1:5432/simple_bank?sslmode=disable" >> app.env
+        echo "SERVER_ADDRESS=0.0.0.0:8080" >> app.env
+        echo "TOKEN_SYMMETRIC_KEY=12345678901234567890123456789012" >> app.env
+        echo "ACCESS_TOKEN_DURATION=15m" >> app.env
+
     - name: Test
       run: make test
