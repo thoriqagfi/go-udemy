@@ -1,7 +1,7 @@
 # make ${target} DB_CONTAINER=${your_db_container} DB_USERNAME=${your_db_username} DB_NAME=${your_db_name}
 
 postgres:
-	docker run --name postgres-udemy --network bank-network -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=123456789 -p 5432:5432 -d postgres:alpine
+	docker run --name postgres-udemy --network bank-network -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=1234567890 -p 5432:5432 -d postgres:alpine
 
 createdb:
 	docker exec -it postgresql createdb --username=postgres --owner=postgres simple_bank
@@ -9,18 +9,18 @@ createdb:
 dropdb:
 	docker exec -it postgresql dropdb --username=postgres simple_bank
 
-# Path: Mafkefile
+# Path: Makefile
 migrateup:
-	migrate -path db/migration -database "postgresql://postgres:123456789@127.0.0.1/simple_bank?sslmode=disable" -verbose up
+	migrate -path db/migration -database "postgresql://postgres:1234567890@127.0.0.1/simple_bank?sslmode=disable" -verbose up
 
 migrateup1:
-	migrate -path db/migration -database "postgresql://postgres:123456789@127.0.0.1/simple_bank?sslmode=disable" -verbose up 1
+	migrate -path db/migration -database "postgresql://postgres:1234567890@127.0.0.1/simple_bank?sslmode=disable" -verbose up 1
 
 migratedown:
-	migrate -path db/migration -database "postgresql://postgres:123456789@127.0.0.1:5432/simple_bank?sslmode=disable" -verbose down
+	migrate -path db/migration -database "postgresql://postgres:1234567890@127.0.0.1:5432/simple_bank?sslmode=disable" -verbose down
 
 migratedown1:
-	migrate -path db/migration -database "postgresql://postgres:123456789@127.0.0.1:5432/simple_bank?sslmode=disable" -verbose down 1
+	migrate -path db/migration -database "postgresql://postgres:1234567890@127.0.0.1:5432/simple_bank?sslmode=disable" -verbose down 1
 
 sqlc:
 	sqlc generate
